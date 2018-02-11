@@ -1,0 +1,115 @@
+<div class="div-bottom-space">
+    <input type="text"
+    class="form-control" 
+    (keyup.enter)="addTask($event)" 
+    placeholder="Add new task title">
+</div>
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="card card-outline-success mb-3">
+            <div class="card-header card-inverse card-success">
+              Open Tasks
+            </div>
+            <div class="card-block scroll-list">
+                <div class="list-group">
+                    <li class="list-group-item list-group-item-action list-group-item-success" 
+                        [draggable] *ngFor="let item of opentasks"
+                        [dragClass]="'active'" [dragData]="item" [dragScope]="item.status" [dragEnabled]="true">
+                        {{item.title}}
+                        <button
+                          class="btn btn-primary btn-sm btn-align"
+                          (click)="updateTask(item)">
+                          Update
+                        </button>
+                        <button 
+                          class="btn btn-primary btn-sm btn-align"
+                          (click)="deleteTask(item)">
+                          Delete
+                        </button>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-3">
+        <div class="card card-outline-primary mb-3" droppable [dragOverClass]="'drag-target-border'" [dropScope]="['open', 'todo', 'inprogress', 'done']" [dragHintClass]="'drag-hint'"
+            (onDrop)="onToDoDrop($event)" [dropEnabled]="true">
+            <div class="card-header card-inverse card-primary">
+                Todo
+            </div>
+            <div class="card-block scroll-list">
+              <div class="list-group">
+                  <li *ngFor="let item of todo" [draggable] [dragClass]='active' [dragData] = "item" 
+                    [dragScope]="item.status" [dragEnabled]="true"
+                    class="list-group-item list-group-item-action list-group-item-sucess">
+                    {{item.title}}
+                    <button 
+                      class="btn btn-primary btn-sm btn-align"
+                      (click)="updateTask(item)">
+                      Update
+                    </button>
+                    <button 
+                      class="btn btn-primary btn-sm btn-align"
+                      (click)="deleteTask(item)">
+                      Delete
+                    </button>
+                  </li>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-3">
+        <div class="card card-outline-primary mb-3" droppable [dragOverClass]="'drag-target-border-green'" [dropScope]="['todo', 'inprogress', 'done']"
+            [dragHintClass]="'drag-hint'" (onDrop)="onInProgressDrop($event)">
+            <div class="card-header card-inverse card-primary">Inprogress</div>
+            <div class="card-block scroll-list">
+                <div class="list-group">
+                  <li *ngFor="let item of inprogress" [draggable] [dragClass]='active' [dragData] = "item" 
+                    [dragScope]="item.status" [dragEnabled]="true"
+                    class="list-group-item list-group-item-action list-group-item-sucess">
+                    {{item.title}}
+                    <button 
+                      class="btn btn-primary btn-sm btn-align"
+                      (click)="updateTask(item)">
+                      Update
+                    </button>
+                    <button 
+                      class="btn btn-primary btn-sm btn-align"
+                      (click)="deleteTask(item)">
+                      Delete
+                    </button>
+                  </li>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-3">
+        <div class="card card-outline-primary mb-3" droppable [dragOverClass]="'drag-target-border'" [dropScope]="['todo', 'inprogress', 'done']"
+            [dragHintClass]="'drag-hint'" (onDrop)="onDoneDrop($event)">
+            <div class="card-header card-inverse card-primary">Done</div>
+            <div class="card-block scroll-list">
+                <div class="list-group">
+                  <li *ngFor="let item of done" [draggable] [dragClass]='active' [dragData] = "item"
+                    [dragScope]="item.status" [dragEnabled]="true"
+                    class="list-group-item list-group-item-action list-group-item-sucess">
+                    {{item.title}}
+                    <button 
+                      class="btn btn-primary btn-sm btn-align"
+                      (click)="updateTask(item)">
+                      Update
+                    </button>
+                    <button 
+                      class="btn btn-primary btn-sm btn-align"
+                      (click)="deleteTask(item)">
+                      Delete
+                    </button>
+                  </li>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
